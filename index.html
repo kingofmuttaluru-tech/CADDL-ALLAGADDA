@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CADDL Allagadda Admin Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- html2pdf.js for high-quality PDF downloads -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        
+        /* Strict A4 Single Page Layout - Prevent "Broken" Reports */
+        .pdf-canvas-wrapper {
+            width: 210mm;
+            height: 296mm; /* Slightly less than 297mm to avoid rounding-induced page breaks */
+            margin: 0 auto;
+            background: white;
+            position: relative;
+            box-sizing: border-box;
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+            padding: 0 !important;
+            overflow: hidden; /* Critical: No content allowed outside this box */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pdf-inner-content {
+            padding: 8mm !important; /* Internal margins */
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white !important; margin: 0 !important; padding: 0 !important; }
+            @page {
+                size: A4;
+                margin: 0;
+            }
+            .pdf-canvas-wrapper { 
+                width: 210mm !important; 
+                height: 297mm !important;
+                box-shadow: none !important;
+                margin: 0 !important;
+                border: none !important;
+            }
+        }
+
+        /* Prevent split elements */
+        .avoid-break {
+            break-inside: avoid !important;
+            page-break-inside: avoid !important;
+        }
+
+        .nabl-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1.5px solid #000;
+            table-layout: fixed;
+        }
+        .nabl-table th, .nabl-table td {
+            border: 1px solid #000;
+            padding: 3px 6px;
+            font-size: 8.5pt;
+            line-height: 1.1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .nabl-table th {
+            background-color: #f1f5f9;
+            text-transform: uppercase;
+            font-weight: 800;
+            color: #000;
+            font-size: 8pt;
+        }
+        
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #1e3a8a; border-radius: 3px; }
+
+        * {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://esm.sh/@google/genai@^1.34.0",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom": "https://esm.sh/react-dom@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "recharts": "https://esm.sh/recharts@2.15.0?external=react,react-dom"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="bg-blue-50 text-slate-900">
+    <div id="root"></div>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
